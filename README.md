@@ -4,6 +4,15 @@ A functional personal finance management application with a responsive user inte
 
 ---
 
+## 🌐 Live Deployments & API Documentation
+
+- **Frontend Application (Vercel)**: [https://finance-tracker-five-eta.vercel.app](https://finance-tracker-five-eta.vercel.app)
+- **Backend API (Render)**: [https://finance-tracker-cynn.onrender.com](https://finance-tracker-cynn.onrender.com)
+- **Interactive Swagger API Documentation**: [https://finance-tracker-cynn.onrender.com/api/docs](https://finance-tracker-cynn.onrender.com/api/docs)
+- **OpenAPI 3.0 Schema (JSON)**: [https://finance-tracker-cynn.onrender.com/api/docs.json](https://finance-tracker-cynn.onrender.com/api/docs.json)
+
+---
+
 ## 1. Technology Stack
 
 - **Frontend**:
