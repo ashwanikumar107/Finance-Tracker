@@ -1,9 +1,10 @@
+const dotenv = require('dotenv');
+dotenv.config();
+
 const app = require('./app');
 const { initDb } = require('./config/db');
 const seedDatabase = require('./seed');
 const dotenv = require('dotenv');
-
-dotenv.config();
 
 const PORT = process.env.PORT || 5000;
 
