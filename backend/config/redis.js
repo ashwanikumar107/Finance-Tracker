@@ -3,6 +3,7 @@ const dotenv = require('dotenv');
 
 dotenv.config();
 
+const redisUrl = process.env.REDIS_URL;
 const redisHost = process.env.REDIS_HOST || '127.0.0.1';
 const redisPort = process.env.REDIS_PORT || 6379;
 const redisPassword = process.env.REDIS_PASSWORD || undefined;
@@ -76,19 +77,28 @@ class MemoryCacheFallback {
 const memoryFallback = new MemoryCacheFallback();
 
 try {
-  redisClient = new Redis({
-    host: redisHost,
-    port: parseInt(redisPort, 10),
-    password: redisPassword,
+  const redisOptions = {
     maxRetriesPerRequest: 1,
     retryStrategy(times) {
-      if (times > 2) {
-        return null; // Stop retrying and seamlessly use fallback
-      }
+      if (times > 2) return null;
       return 1000;
     },
     lazyConnect: true,
-  });
+  };
+
+  if (redisUrl) {
+    redisClient = new Redis(redisUrl, redisOptions);
+  } else {
+    // If connecting to cloud Redis (e.g. Aiven), TLS/SSL is required
+    const isCloud = redisHost.includes('aivencloud.com') || redisHost.includes('upstash.io') || process.env.REDIS_TLS === 'true';
+    redisClient = new Redis({
+      host: redisHost,
+      port: parseInt(redisPort, 10),
+      password: redisPassword,
+      tls: isCloud ? { rejectUnauthorized: false } : undefined,
+      ...redisOptions,
+    });
+  }
 
   redisClient.connect().then(() => {
     isRedisConnected = true;
