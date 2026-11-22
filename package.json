@@ -1,0 +1,14 @@
+{
+  "name": "pennywise-finance-tracker",
+  "version": "1.0.0",
+  "description": "Pennywise – Production Quality Personal Finance Manager",
+  "scripts": {
+    "start": "node backend/server.js",
+    "backend": "cd backend && npm run dev",
+    "frontend": "cd frontend && npm run dev",
+    "build": "cd frontend && npm run build"
+  },
+  "keywords": ["finance", "tracker", "react", "nodejs", "express", "postgresql", "redis"],
+  "author": "Antigravity Senior Full-Stack Developer",
+  "license": "ISC"
+}
