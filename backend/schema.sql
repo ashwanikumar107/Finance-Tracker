@@ -3,13 +3,7 @@
 -- Compatible with PostgreSQL 13+
 -- ============================================================================
 
--- Drop tables in order of dependency if re-initializing
-DROP TABLE IF EXISTS admin_activity_logs CASCADE;
-DROP TABLE IF EXISTS refresh_tokens CASCADE;
-DROP TABLE IF EXISTS budgets CASCADE;
-DROP TABLE IF EXISTS transactions CASCADE;
-DROP TABLE IF EXISTS categories CASCADE;
-DROP TABLE IF EXISTS users CASCADE;
+-- Tables are created only if they do not already exist (safe for restarts)
 
 -- 1. Users Table
 CREATE TABLE users (

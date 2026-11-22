@@ -56,12 +56,19 @@ async function initDb() {
       const client = await pool.connect();
       console.log('✓ Successfully connected to PostgreSQL instance at', pgHost || 'Aiven Cloud');
       
-      // Auto-run schema.sql on remote database if tables don't exist yet
+      // Auto-run schema.sql only if tables don't exist yet (safe on restarts)
       const schemaPath = path.join(__dirname, '..', 'schema.sql');
       if (fs.existsSync(schemaPath)) {
-        const schemaSql = fs.readFileSync(schemaPath, 'utf8');
-        await client.query(schemaSql);
-        console.log('✓ Verified & initialized PostgreSQL schema tables');
+        const tableCheck = await client.query(
+          `SELECT to_regclass('public.users') AS tbl`
+        );
+        if (!tableCheck.rows[0].tbl) {
+          const schemaSql = fs.readFileSync(schemaPath, 'utf8');
+          await client.query(schemaSql);
+          console.log('✓ Database schema created for the first time');
+        } else {
+          console.log('✓ Database tables already exist — skipping schema init');
+        }
       }
 
       client.release();
