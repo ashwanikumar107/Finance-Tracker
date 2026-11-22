@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
 const errorHandler = require('./middleware/errorHandler');
+const { swaggerUi, swaggerSpec, swaggerOptions } = require('./config/swagger');
 
 // Route imports
 const authRoutes = require('./routes/authRoutes');
@@ -13,9 +14,10 @@ const userRoutes = require('./routes/userRoutes');
 
 const app = express();
 
-// Security Headers via Helmet
+// Security Headers via Helmet (configured to allow Swagger UI scripts/styles)
 app.use(helmet({
-  crossOriginResourcePolicy: { policy: "cross-origin" }
+  crossOriginResourcePolicy: { policy: "cross-origin" },
+  contentSecurityPolicy: false,
 }));
 
 // CORS Configuration
@@ -60,6 +62,14 @@ app.get('/api/health', (req, res) => {
     service: 'Pennywise API',
   });
 });
+
+// Swagger API Documentation routes
+app.get('/api/docs.json', (req, res) => {
+  res.setHeader('Content-Type', 'application/json');
+  res.send(swaggerSpec);
+});
+app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec, swaggerOptions));
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec, swaggerOptions));
 
 // Mount modular API routes
 app.use('/api/auth', authRoutes);
