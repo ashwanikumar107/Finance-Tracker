@@ -7,34 +7,10 @@ import {
   Calendar,
   Sparkles,
 } from 'lucide-react';
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  PointElement,
-  LineElement,
-  ArcElement,
-  Title,
-  Tooltip,
-  Legend,
-} from 'chart.js';
 import { Doughnut, Line, Bar } from 'react-chartjs-2';
 import { apiFetch } from '../services/api';
 import { formatCurrency } from '../utils/formatters';
 import LoadingSkeleton from '../components/LoadingSkeleton';
-
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  PointElement,
-  LineElement,
-  ArcElement,
-  Title,
-  Tooltip,
-  Legend
-);
 
 export default function Analytics() {
   const [loading, setLoading] = useState(true);

@@ -8,7 +8,12 @@ export function AuthProvider({ children }) {
     const saved = localStorage.getItem('pw_user');
     return saved ? JSON.parse(saved) : null;
   });
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(() => {
+    // Start as false if we already have a user in localStorage (avoids flash)
+    const saved = localStorage.getItem('pw_user');
+    const token = localStorage.getItem('pw_access_token');
+    return !(saved && token); // Only show loading if no cached session
+  });
 
   // Synchronize auth state on load
   useEffect(() => {

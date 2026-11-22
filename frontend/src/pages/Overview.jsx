@@ -12,18 +12,6 @@ import {
   Calendar,
   AlertTriangle,
 } from 'lucide-react';
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  PointElement,
-  LineElement,
-  ArcElement,
-  Title,
-  Tooltip,
-  Legend,
-} from 'chart.js';
 import { Bar, Doughnut, Line } from 'react-chartjs-2';
 import { apiFetch } from '../services/api';
 import { useAuth } from '../context/AuthContext';
@@ -31,18 +19,6 @@ import { formatCurrency, formatDate } from '../utils/formatters';
 import LoadingSkeleton from '../components/LoadingSkeleton';
 import TransactionModal from '../components/TransactionModal';
 import './Overview.css';
-
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  PointElement,
-  LineElement,
-  ArcElement,
-  Title,
-  Tooltip,
-  Legend
-);
 
 export default function Overview() {
   const { isReadOnly } = useAuth();
