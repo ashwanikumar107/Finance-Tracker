@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Wallet, Lock, Mail, User, Shield, ArrowRight } from 'lucide-react';
+import { Wallet, Lock, Mail, User, ArrowRight } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { useToast } from '../context/ToastContext';
 import './Auth.css';
@@ -13,7 +13,6 @@ export default function Register() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [role, setRole] = useState('user');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
@@ -28,7 +27,7 @@ export default function Register() {
 
     setLoading(true);
     try {
-      await register(name, email, password, role);
+      await register(name, email, password, 'user');
       addToast('Account created successfully! Welcome to Pennywise.', 'success');
       navigate('/overview');
     } catch (err) {
@@ -97,23 +96,6 @@ export default function Register() {
                 required
                 disabled={loading}
               />
-            </div>
-          </div>
-
-          <div className="form-group">
-            <label className="form-label">Account Role</label>
-            <div className="auth-input-wrap">
-              <Shield size={16} className="auth-input-icon" />
-              <select
-                className="form-select auth-input"
-                value={role}
-                onChange={(e) => setRole(e.target.value)}
-                disabled={loading}
-              >
-                <option value="user">User (Standard account)</option>
-                <option value="read-only">Read-Only (View transactions and analytics only)</option>
-                <option value="admin">Admin (Full administrative privileges)</option>
-              </select>
             </div>
           </div>
 

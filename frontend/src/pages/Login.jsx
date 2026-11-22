@@ -10,8 +10,8 @@ export default function Login() {
   const { addToast } = useToast();
   const navigate = useNavigate();
 
-  const [email, setEmail] = useState('priya@pennywise.com');
-  const [password, setPassword] = useState('Password123!');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
@@ -31,11 +31,7 @@ export default function Login() {
     }
   };
 
-  // Demo account quick filler
-  const fillDemo = (demoEmail) => {
-    setEmail(demoEmail);
-    setPassword('Password123!');
-  };
+
 
   return (
     <div className="auth-wrapper">
@@ -94,33 +90,6 @@ export default function Login() {
           </button>
         </form>
 
-        {/* Demo Accounts Quick-Select Buttons */}
-        <div className="demo-accounts-box">
-          <span className="demo-box-label">QUICK DEMO ROLES (Password123!)</span>
-          <div className="demo-buttons-row">
-            <button
-              type="button"
-              className="demo-pill-btn"
-              onClick={() => fillDemo('priya@pennywise.com')}
-            >
-              Standard User
-            </button>
-            <button
-              type="button"
-              className="demo-pill-btn"
-              onClick={() => fillDemo('admin@pennywise.com')}
-            >
-              Admin
-            </button>
-            <button
-              type="button"
-              className="demo-pill-btn"
-              onClick={() => fillDemo('readonly@pennywise.com')}
-            >
-              Read-Only
-            </button>
-          </div>
-        </div>
 
         <div className="auth-footer">
           <span>Don't have an account?</span>
